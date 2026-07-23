@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSWDO Monthly Activity Monitoring System</title>
+</head>
+<body>
+  <script>
+    const user = localStorage.getItem("pswdo_v2_user");
+
+    if (user) {
+      window.location.href = "dashboard.html";
+    } else {
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

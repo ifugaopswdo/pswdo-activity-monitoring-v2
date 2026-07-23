@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activities | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monthly-plan.html">Monthly Plan</a>
+        <a href="activities.html" class="active">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html">Review / Approval</a>
+        <a href="export.html">Export</a>
+        <a href="users.html">Staff Management</a>
+        <a href="sections.html">Sections</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Activities Encoding</h1>
+          <p>Encode monthly activities and assign responsible staff</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section class="dashboard-actions">
+        <div>
+          <h2 id="activePlanTitle">Active Monthly Plan</h2>
+          <p id="pageMessage">Loading active monthly plan...</p>
+        </div>
+
+        <div class="action-buttons">
+          <button onclick="loadActivitiesPage()">Refresh</button>
+        </div>
+      </section>
+
+      <section id="activityFormSection" class="form-card">
+        <div class="panel-header">
+          <div>
+            <h3>Add Monthly Activity</h3>
+            <span>Encode one activity and assign one or more responsible staff</span>
+          </div>
+        </div>
+
+        <form id="activityForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="activityDate">Activity Date</label>
+              <input type="date" id="activityDate" />
+            </div>
+
+            <div class="form-group">
+              <label for="dateLabel">Date Label</label>
+              <input 
+                type="text" 
+                id="dateLabel" 
+                placeholder="Example: July 1-2 or July 6-7" 
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="division">Division / Section</label>
+              <select id="division" required>
+                <option value="">Loading sections...</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="activityTitle">Activity</label>
+              <textarea 
+                id="activityTitle" 
+                rows="3" 
+                placeholder="Enter activity title/description" 
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="destination">Destination</label>
+              <input 
+                type="text" 
+                id="destination" 
+                placeholder="Example: Lagawe, Ifugao" 
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="vehicle">Vehicle</label>
+              <input 
+                type="text" 
+                id="vehicle" 
+                placeholder="Example: N/A, Van, Pick-up" 
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" required>
+                <option value="SCHEDULED">Scheduled</option>
+                <option value="ONGOING">Ongoing</option>
+                <option value="DELAYED">Delayed</option>
+                <option value="RESCHEDULED">Rescheduled</option>
+                <option value="CANCELLED">Cancelled</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label>Responsible Staff</label>
+
+              <div class="staff-picker-tools">
+                <input 
+                  type="text" 
+                  id="staffSearch" 
+                  placeholder="Search staff name, position, or section..."
+                  oninput="renderStaffPicker()"
+                />
+
+                <button type="button" class="secondary-btn" onclick="clearSelectedStaff()">
+                  Clear Selected
+                </button>
+              </div>
+
+              <div id="staffPicker" class="staff-picker">
+                Loading staff...
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="remarks">Remarks</label>
+              <textarea 
+                id="remarks" 
+                rows="3" 
+                placeholder="Optional remarks"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="upload-rule-note">
+            Supporting document/report is required before this activity can be marked as accomplished.
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="saveActivityBtn" class="primary-btn">Save Activity</button>
+            <button type="button" class="secondary-btn" onclick="clearActivityForm()">Clear</button>
+          </div>
+
+          <p id="activityFormMessage" class="message"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h3>Monthly Activities</h3>
+            <span>List of activities under the active monthly plan</span>
+          </div>
+
+          <div class="search-box">
+            <input 
+              type="text" 
+              id="activitySearch" 
+              placeholder="Search activities..."
+              oninput="filterActivities()"
+            />
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Division</th>
+                <th>Activity</th>
+                <th>Destination</th>
+                <th>Vehicle</th>
+                <th>Responsible Staff</th>
+                <th>Status</th>
+                <th>Upload</th>
+                <th>Remarks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="activitiesTableBody">
+              <tr>
+                <td colspan="10" class="empty-cell">Loading activities...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/activities.js"></script>
+</body>
+</html>

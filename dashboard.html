@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="monthly-plan.html">Monthly Plan</a>
+        <a href="activities.html">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html">Review / Approval</a>
+        <a href="export.html">Export</a>
+        <a href="users.html">Staff Management</a>
+        <a href="sections.html">Sections</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Staff Activity Dashboard</h1>
+          <p data-setting="OFFICE_NAME">Provincial Social Welfare and Development Office</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section class="dashboard-actions">
+        <div>
+          <h2 id="activePlanTitle">Monthly Activity Plan</h2>
+          <p id="loadingText">Loading dashboard...</p>
+        </div>
+
+        <div class="action-buttons">
+          <button onclick="loadDashboard()">Refresh</button>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <div class="stat-card">
+          <p>Total Staff</p>
+          <h3 id="totalStaff">0</h3>
+        </div>
+
+        <div class="stat-card">
+          <p>Total Activities</p>
+          <h3 id="totalActivities">0</h3>
+        </div>
+
+        <div class="stat-card">
+          <p>Scheduled</p>
+          <h3 id="scheduledActivities">0</h3>
+        </div>
+
+        <div class="stat-card">
+          <p>Ongoing</p>
+          <h3 id="ongoingActivities">0</h3>
+        </div>
+
+        <div class="stat-card warning">
+          <p>For Review</p>
+          <h3 id="forReviewActivities">0</h3>
+        </div>
+
+        <div class="stat-card success">
+          <p>Accomplished</p>
+          <h3 id="accomplishedActivities">0</h3>
+        </div>
+
+        <div class="stat-card danger">
+          <p>Delayed</p>
+          <h3 id="delayedActivities">0</h3>
+        </div>
+
+        <div class="stat-card">
+          <p>No Assigned Activity</p>
+          <h3 id="staffWithNoAssignedActivity">0</h3>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h3>PSWDO Staff</h3>
+            <span>Click a staff name to view assigned monthly activities</span>
+          </div>
+
+          <div class="search-box">
+            <input 
+              type="text" 
+              id="staffSearch" 
+              placeholder="Search staff name, section, or position..."
+              oninput="filterStaffCards()"
+            />
+          </div>
+        </div>
+
+        <div id="staffCardsGrid" class="staff-grid">
+          <div class="empty-card">Loading staff...</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="staffModal" class="modal hidden">
+    <div class="modal-backdrop" onclick="closeStaffModal()"></div>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h2 id="modalStaffName">Staff Name</h2>
+          <p id="modalStaffInfo">Position • Section</p>
+        </div>
+
+        <button class="close-btn" onclick="closeStaffModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="staff-summary-row">
+          <div>
+            <p>Total Activities</p>
+            <h3 id="modalTotalActivities">0</h3>
+          </div>
+
+          <div>
+            <p>Accomplished</p>
+            <h3 id="modalAccomplished">0</h3>
+          </div>
+
+          <div>
+            <p>For Review</p>
+            <h3 id="modalForReview">0</h3>
+          </div>
+
+          <div>
+            <p>Delayed</p>
+            <h3 id="modalDelayed">0</h3>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Activity</th>
+                <th>Destination</th>
+                <th>Vehicle</th>
+                <th>Status</th>
+                <th>Upload</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="modalActivitiesBody">
+              <tr>
+                <td colspan="7" class="empty-cell">Loading activities...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

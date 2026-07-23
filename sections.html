@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sections | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monthly-plan.html">Monthly Plan</a>
+        <a href="activities.html">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html">Review / Approval</a>
+        <a href="export.html">Export</a>
+        <a href="users.html">Staff Management</a>
+        <a href="sections.html" class="active">Sections</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Sections Management</h1>
+          <p>Manage PSWDO sections, divisions, and section heads</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section id="accessDenied" class="panel hidden">
+        <h2>Access Denied</h2>
+        <p>Only the Main Admin can manage sections.</p>
+      </section>
+
+      <section id="sectionsContent">
+        <section class="form-card">
+          <div class="panel-header">
+            <div>
+              <h3>Add New Section / Division</h3>
+              <span>Create PSWDO sections used for staff grouping and activity assignment</span>
+            </div>
+          </div>
+
+          <form id="sectionForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="sectionName">Section / Division Name</label>
+                <input 
+                  type="text" 
+                  id="sectionName" 
+                  placeholder="Example: CBICBD" 
+                  required 
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="sectionHead">Section Head</label>
+                <input 
+                  type="text" 
+                  id="sectionHead" 
+                  placeholder="Example: Maria Santos" 
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="sectionStatus">Status</label>
+                <select id="sectionStatus" required>
+                  <option value="ACTIVE">Active</option>
+                  <option value="INACTIVE">Inactive</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="saveSectionBtn" class="primary-btn">Save Section</button>
+              <button type="button" class="secondary-btn" onclick="clearSectionForm()">Clear</button>
+            </div>
+
+            <p id="sectionFormMessage" class="message"></p>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Registered Sections / Divisions</h3>
+              <span>These sections appear in staff and activity forms</span>
+            </div>
+
+            <div class="search-box">
+              <input 
+                type="text" 
+                id="sectionSearch" 
+                placeholder="Search section or section head..."
+                oninput="filterSections()"
+              />
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Section ID</th>
+                  <th>Section Name</th>
+                  <th>Section Head</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="sectionsTableBody">
+                <tr>
+                  <td colspan="6" class="empty-cell">Loading sections...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/sections.js"></script>
+</body>
+</html>

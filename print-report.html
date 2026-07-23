@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Printable Report | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="print-page">
+
+  <div class="print-toolbar">
+    <button onclick="window.print()">Print Report</button>
+    <button onclick="window.close()">Close</button>
+  </div>
+
+  <main class="print-document">
+    <header class="print-header">
+      <div class="print-logo">PSWDO</div>
+
+      <div>
+        <p>Republic of the Philippines</p>
+        <p data-setting="PROVINCE">Province of Ifugao</p>
+        <h1 data-setting="OFFICE_NAME">Provincial Social Welfare and Development Office</h1>
+        <p data-setting="OFFICE_ADDRESS">Provincial Capitol Compound, Lagawe, Ifugao</p>
+      </div>
+    </header>
+
+    <section class="print-title">
+      <h2 id="reportTitle">Monthly Consolidated Activities</h2>
+      <p id="reportSubtitle">Loading report...</p>
+    </section>
+
+    <section class="print-summary">
+      <div>
+        <strong id="printTotalActivities">0</strong>
+        <span>Total Activities</span>
+      </div>
+
+      <div>
+        <strong id="printAccomplished">0</strong>
+        <span>Accomplished</span>
+      </div>
+
+      <div>
+        <strong id="printForReview">0</strong>
+        <span>For Review</span>
+      </div>
+
+      <div>
+        <strong id="printDelayed">0</strong>
+        <span>Delayed</span>
+      </div>
+    </section>
+
+    <section class="print-table-section">
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Division</th>
+            <th>Activities</th>
+            <th>Destination</th>
+            <th>Vehicle</th>
+            <th>Responsible Person</th>
+            <th>Status</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody id="printReportBody">
+          <tr>
+            <td colspan="8">Loading activities...</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="print-signatories">
+      <div>
+        <p>Prepared by:</p>
+        <strong>______________________________</strong>
+        <span>Administrative Staff / Encoder</span>
+      </div>
+
+      <div>
+        <p>Reviewed by:</p>
+        <strong>______________________________</strong>
+        <span>Section Head / Authorized Reviewer</span>
+      </div>
+
+      <div>
+        <p>Approved by:</p>
+        <strong>______________________________</strong>
+        <span>PSWDO Head</span>
+      </div>
+    </section>
+
+    <footer class="print-footer">
+      <p data-setting="FOOTER_NOTE">For official use only</p>
+      <p id="generatedDate"></p>
+    </footer>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/print-report.js"></script>
+</body>
+</html>

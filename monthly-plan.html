@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monthly Plan | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monthly-plan.html" class="active">Monthly Plan</a>
+        <a href="activities.html">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html">Review / Approval</a>
+        <a href="export.html">Export</a>
+        <a href="users.html">Staff Management</a>
+        <a href="sections.html">Sections</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Monthly Plan Management</h1>
+          <p>Create and manage PSWDO monthly activity plans</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section id="adminOnlyNotice" class="panel hidden">
+        <h2>View Only</h2>
+        <p>Only the Main Admin can create or activate monthly plans. You may still view the active monthly plan.</p>
+      </section>
+
+      <section id="monthlyPlanFormSection" class="form-card">
+        <div class="panel-header">
+          <div>
+            <h3>Create Monthly Plan</h3>
+            <span>Example: Consolidated Activities for July 2026</span>
+          </div>
+        </div>
+
+        <form id="monthlyPlanForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="month">Month</label>
+              <select id="month" required>
+                <option value="">Select Month</option>
+                <option>January</option>
+                <option>February</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="year">Year</label>
+              <input type="number" id="year" placeholder="2026" required />
+            </div>
+
+            <div class="form-group">
+              <label for="planStatus">Status</label>
+              <select id="planStatus" required>
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="title">Plan Title</label>
+              <input 
+                type="text" 
+                id="title" 
+                placeholder="Example: Consolidated Activities for July 2026" 
+                required 
+              />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="remarks">Remarks</label>
+              <textarea 
+                id="remarks" 
+                rows="3" 
+                placeholder="Optional remarks"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="savePlanBtn" class="primary-btn">Save Monthly Plan</button>
+            <button type="button" class="secondary-btn" onclick="clearPlanForm()">Clear</button>
+          </div>
+
+          <p id="planFormMessage" class="message"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <h3>Monthly Plans</h3>
+            <span>Select the active monthly plan used by the dashboard</span>
+          </div>
+
+          <button class="primary-btn" onclick="loadMonthlyPlans()">Refresh</button>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Plan ID</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Created By</th>
+                <th>Created At</th>
+                <th>Remarks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="monthlyPlansTableBody">
+              <tr>
+                <td colspan="9" class="empty-cell">Loading monthly plans...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/monthly-plan.js"></script>
+</body>
+</html>

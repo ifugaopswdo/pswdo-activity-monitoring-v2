@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Management | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monthly-plan.html">Monthly Plan</a>
+        <a href="activities.html">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html">Review / Approval</a>
+        <a href="export.html">Export</a>
+        <a href="users.html" class="active">Staff Management</a>
+        <a href="sections.html">Sections</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Staff Management</h1>
+          <p>Manage PSWDO staff accounts, roles, and sections</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section id="accessDenied" class="panel hidden">
+        <h2>Access Denied</h2>
+        <p>Only the Main Admin can manage staff accounts.</p>
+      </section>
+
+      <section id="usersContent">
+        <section class="form-card">
+          <div class="panel-header">
+            <div>
+              <h3>Add New Staff / User Account</h3>
+              <span>Create login accounts and staff profiles</span>
+            </div>
+          </div>
+
+          <form id="userForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Example: Juan Dela Cruz" required />
+              </div>
+
+              <div class="form-group">
+                <label for="position">Position</label>
+                <input type="text" id="position" placeholder="Example: Social Welfare Officer" required />
+              </div>
+
+              <div class="form-group">
+                <label for="section">Section / Division</label>
+                <select id="section" required>
+                  <option value="">Loading sections...</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Example: juan" required />
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" id="password" placeholder="Example: juan123" required />
+              </div>
+
+              <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" required>
+                  <option value="STAFF">Staff</option>
+                  <option value="SECTION_HEAD">Section Head / Focal Person</option>
+                  <option value="BOSS">Boss / PSWDO Head</option>
+                  <option value="MAIN_ADMIN">Main Admin / Encoder</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" required>
+                  <option value="ACTIVE">Active</option>
+                  <option value="INACTIVE">Inactive</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="saveUserBtn" class="primary-btn">Save User</button>
+              <button type="button" class="secondary-btn" onclick="clearUserForm()">Clear</button>
+            </div>
+
+            <p id="userFormMessage" class="message"></p>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Registered Staff and Users</h3>
+              <span>Active STAFF and SECTION_HEAD accounts will appear on the dashboard</span>
+            </div>
+
+            <div class="search-box">
+              <input 
+                type="text" 
+                id="userSearch" 
+                placeholder="Search name, role, section, or position..."
+                oninput="filterUsers()"
+              />
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Full Name</th>
+                  <th>Position</th>
+                  <th>Section</th>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <tr>
+                  <td colspan="9" class="empty-cell">Loading users...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/users.js"></script>
+</body>
+</html>

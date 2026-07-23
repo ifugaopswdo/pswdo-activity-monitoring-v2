@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review and Approval | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monthly-plan.html">Monthly Plan</a>
+        <a href="activities.html">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html" class="active">Review / Approval</a>
+        <a href="export.html">Export</a>
+        <a href="users.html">Staff Management</a>
+        <a href="sections.html">Sections</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Review and Approval</h1>
+          <p>Review uploaded supporting documents before approving accomplishments</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section id="accessDenied" class="panel hidden">
+        <h2>Access Denied</h2>
+        <p>Only the Boss, Main Admin, or Section Head can review and approve activities.</p>
+      </section>
+
+      <section id="reviewContent">
+        <section class="dashboard-actions">
+          <div>
+            <h2 id="activePlanTitle">Active Monthly Plan</h2>
+            <p id="pageMessage">Loading activities for review...</p>
+          </div>
+
+          <div class="action-buttons">
+            <button onclick="loadReviewPage()">Refresh</button>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <div class="stat-card warning">
+            <p>For Review</p>
+            <h3 id="forReviewCount">0</h3>
+          </div>
+
+          <div class="stat-card success">
+            <p>Accomplished</p>
+            <h3 id="accomplishedCount">0</h3>
+          </div>
+
+          <div class="stat-card danger">
+            <p>For Upload</p>
+            <h3 id="forUploadCount">0</h3>
+          </div>
+
+          <div class="stat-card">
+            <p>Total Uploads</p>
+            <h3 id="totalUploadsCount">0</h3>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Activities Waiting for Review</h3>
+              <span>These activities already have uploaded supporting documents</span>
+            </div>
+
+            <div class="search-box">
+              <input 
+                type="text" 
+                id="reviewSearch" 
+                placeholder="Search activity, staff, destination..."
+                oninput="filterReviewActivities()"
+              />
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Activity</th>
+                  <th>Responsible Staff</th>
+                  <th>Destination</th>
+                  <th>Status</th>
+                  <th>Uploaded Files</th>
+                  <th>Remarks</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="reviewTableBody">
+                <tr>
+                  <td colspan="8" class="empty-cell">Loading activities for review...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Recently Accomplished Activities</h3>
+              <span>Activities already approved as accomplished</span>
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Activity</th>
+                  <th>Responsible Staff</th>
+                  <th>Reviewed By</th>
+                  <th>Reviewed At</th>
+                  <th>File</th>
+                </tr>
+              </thead>
+              <tbody id="accomplishedTableBody">
+                <tr>
+                  <td colspan="6" class="empty-cell">Loading accomplished activities...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/review.js"></script>
+</body>
+</html>

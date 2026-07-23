@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Export | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monthly-plan.html">Monthly Plan</a>
+        <a href="activities.html">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html">Review / Approval</a>
+        <a href="export.html" class="active">Export</a>
+        <a href="users.html">Staff Management</a>
+        <a href="sections.html">Sections</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>Export Center</h1>
+          <p>Download and print monthly PSWDO activity reports</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section id="accessDenied" class="panel hidden">
+        <h2>Access Denied</h2>
+        <p>Only the Boss, Main Admin, or Section Head can export reports.</p>
+      </section>
+
+      <section id="exportContent">
+        <section class="dashboard-actions">
+          <div>
+            <h2 id="activePlanTitle">Active Monthly Plan</h2>
+            <p id="pageMessage">Loading export data...</p>
+          </div>
+
+          <div class="action-buttons">
+            <button onclick="loadExportPage()">Refresh</button>
+            <button onclick="openPrintableReport()">Open Printable Report</button>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <div class="stat-card">
+            <p>Total Activities</p>
+            <h3 id="totalActivities">0</h3>
+          </div>
+
+          <div class="stat-card success">
+            <p>Accomplished</p>
+            <h3 id="accomplishedActivities">0</h3>
+          </div>
+
+          <div class="stat-card warning">
+            <p>For Review</p>
+            <h3 id="forReviewActivities">0</h3>
+          </div>
+
+          <div class="stat-card danger">
+            <p>Delayed</p>
+            <h3 id="delayedActivities">0</h3>
+          </div>
+        </section>
+
+        <section class="export-grid">
+          <div class="export-card">
+            <h3>Monthly Consolidated Activities</h3>
+            <p>Download the full monthly activity list with responsible staff and file links.</p>
+            <button class="primary-btn" onclick="downloadConsolidatedCSV()">
+              Download CSV
+            </button>
+          </div>
+
+          <div class="export-card">
+            <h3>Staff Summary</h3>
+            <p>Download staff names with total assigned, accomplished, for review, and delayed activities.</p>
+            <button class="primary-btn" onclick="downloadStaffSummaryCSV()">
+              Download Staff Summary
+            </button>
+          </div>
+
+          <div class="export-card">
+            <h3>Uploaded Documents</h3>
+            <p>Download list of uploaded reports and supporting documents.</p>
+            <button class="primary-btn" onclick="downloadUploadsCSV()">
+              Download Uploads
+            </button>
+          </div>
+
+          <div class="export-card">
+            <h3>Printable Report</h3>
+            <p>Open a print-ready monthly consolidated activity report.</p>
+            <button class="primary-btn" onclick="openPrintableReport()">
+              Open Print Page
+            </button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Report Preview</h3>
+              <span>Preview of monthly consolidated activities</span>
+            </div>
+
+            <div class="search-box">
+              <input 
+                type="text" 
+                id="exportSearch" 
+                placeholder="Search activity, staff, destination, status..."
+                oninput="filterExportPreview()"
+              />
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Division</th>
+                  <th>Activity</th>
+                  <th>Destination</th>
+                  <th>Vehicle</th>
+                  <th>Responsible Staff</th>
+                  <th>Status</th>
+                  <th>Upload</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody id="exportPreviewBody">
+                <tr>
+                  <td colspan="9" class="empty-cell">Loading preview...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/export.js"></script>
+</body>
+</html>
