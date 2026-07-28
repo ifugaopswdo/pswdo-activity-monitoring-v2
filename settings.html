@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings | PSWDO Monthly Activity Monitoring System</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="app-page">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <div class="mini-seal">P</div>
+        <div>
+          <h2>PSWDO</h2>
+          <p data-setting="SYSTEM_NAME">Monthly Activity Monitoring</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="monthly-plan.html">Monthly Plan</a>
+        <a href="activities.html">Activities</a>
+        <a href="uploads.html">Uploads</a>
+        <a href="review.html">Review / Approval</a>
+        <a href="export.html">Export</a>
+        <a href="users.html">Staff Management</a>
+        <a href="sections.html">Sections</a>
+        <a href="settings.html" class="active">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h1>System Settings</h1>
+          <p>Manage office details, system labels, and file access settings</p>
+        </div>
+
+        <div class="user-box">
+          <div>
+            <strong id="userName">User</strong>
+            <small id="userRole">Role</small>
+          </div>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <section id="accessDenied" class="panel hidden">
+        <h2>Access Denied</h2>
+        <p>Only the Main Admin can update system settings.</p>
+      </section>
+
+      <section id="settingsContent">
+        <section class="form-card">
+          <div class="panel-header">
+            <div>
+              <h3>Office and System Information</h3>
+              <span>These values appear in login page, dashboard, and printed reports</span>
+            </div>
+          </div>
+
+          <form id="settingsForm">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label for="systemName">System Name</label>
+                <input 
+                  type="text" 
+                  id="systemName" 
+                  placeholder="PSWDO Monthly Activity Monitoring System"
+                />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="officeName">Office Name</label>
+                <input 
+                  type="text" 
+                  id="officeName" 
+                  placeholder="Provincial Social Welfare and Development Office"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="province">Province</label>
+                <input 
+                  type="text" 
+                  id="province" 
+                  placeholder="Province of Ifugao"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="officeEmail">Office Email</label>
+                <input 
+                  type="email" 
+                  id="officeEmail" 
+                  placeholder="example@gmail.com"
+                />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="officeAddress">Office Address</label>
+                <input 
+                  type="text" 
+                  id="officeAddress" 
+                  placeholder="Provincial Capitol Compound, Lagawe, Ifugao"
+                />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="footerNote">Footer Note</label>
+                <input 
+                  type="text" 
+                  id="footerNote" 
+                  placeholder="For official use only"
+                />
+              </div>
+            </div>
+
+            <hr class="settings-divider" />
+
+            <div class="panel-header">
+              <div>
+                <h3>Uploaded File Access</h3>
+                <span>Controls who can open uploaded supporting documents</span>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fileSharingMode">File Sharing Mode</label>
+                <select id="fileSharingMode">
+                  <option value="PRIVATE">Private</option>
+                  <option value="VIEWERS">Specific Viewers Only</option>
+                  <option value="ANYONE_WITH_LINK">Anyone With Link</option>
+                </select>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="fileViewerEmails">Viewer Emails</label>
+                <textarea 
+                  id="fileViewerEmails" 
+                  rows="3" 
+                  placeholder="Example: pswdohead@gmail.com, sectionhead@gmail.com"
+                ></textarea>
+                <small class="field-note">
+                  Use this when File Sharing Mode is set to Specific Viewers Only.
+                </small>
+              </div>
+            </div>
+
+            <div class="settings-warning">
+              Recommended for official use: <strong>Specific Viewers Only</strong>.  
+              Avoid using <strong>Anyone With Link</strong> if uploaded reports may contain confidential or sensitive information.
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="saveSettingsBtn" class="primary-btn">Save Settings</button>
+              <button type="button" class="secondary-btn" onclick="loadSettings()">Reload</button>
+            </div>
+
+            <p id="settingsMessage" class="message"></p>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <h3>Current Settings</h3>
+              <span>Raw settings saved in the SETTINGS sheet</span>
+            </div>
+
+            <button class="primary-btn" onclick="loadSettings()">Refresh</button>
+          </div>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Setting Key</th>
+                  <th>Setting Value</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody id="settingsTableBody">
+                <tr>
+                  <td colspan="3" class="empty-cell">Loading settings...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app-settings.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>

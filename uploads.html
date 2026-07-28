@@ -27,7 +27,7 @@
         <a href="export.html">Export</a>
         <a href="users.html">Staff Management</a>
         <a href="sections.html">Sections</a>
-        <a href="#">Settings</a>
+        <a href="settings.html">Settings</a>
       </nav>
     </aside>
 
@@ -85,11 +85,16 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <label for="uploadedFor">Uploaded For</label>
-              <select id="uploadedFor">
-                <option value="">Select responsible staff</option>
-              </select>
+            <div class="form-group full-width">
+                <label>Assigned Staff</label>
+
+                <div id="assignedStaffContainer" class="assigned-staff-box">
+
+                    <p class="empty-message">
+                        Select an activity to view assigned staff.
+                    </p>
+
+                </div>
             </div>
 
             <div class="form-group">

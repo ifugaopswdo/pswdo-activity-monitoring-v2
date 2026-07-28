@@ -1254,3 +1254,52 @@ td a:hover {
 .success-btn:hover {
   background: #065f46;
 }
+
+/* SETTINGS PAGE */
+
+.settings-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 26px 0;
+}
+
+.field-note {
+  display: block;
+  margin-top: 6px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.settings-warning {
+  background: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fed7aa;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin: 10px 0 16px;
+  line-height: 1.5;
+}
+
+.assigned-staff-box{
+    min-height:80px;
+    border:1px solid #d8e1ee;
+    border-radius:10px;
+    background:#f8fafc;
+    padding:15px;
+}
+
+.staff-chip{
+    display:inline-block;
+    padding:8px 14px;
+    margin:5px;
+    border-radius:20px;
+    background:#e8f1ff;
+    color:#0f3d73;
+    font-weight:600;
+}
+
+.empty-message{
+    color:#777;
+    font-style:italic;
+}
