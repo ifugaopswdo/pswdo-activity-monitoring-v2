@@ -127,35 +127,58 @@ function renderActivityOptions() {
 }
 
 function onActivitySelect() {
-  const activityId = document.getElementById("activitySelect").value;
-  const uploadedFor = document.getElementById("uploadedFor");
 
-  uploadedFor.innerHTML = `<option value="">Select responsible staff</option>`;
+    const activityId = document.getElementById("activitySelect").value;
 
-  if (!activityId) return;
+    const container = document.getElementById("assignedStaffContainer");
 
-  const relatedAssignees = uploadAssignees.filter(function (asg) {
-    return String(asg.ACTIVITY_ID) === String(activityId);
-  });
+    container.innerHTML = "";
 
-  relatedAssignees.forEach(function (asg) {
-    uploadedFor.innerHTML += `
-      <option value="${escapeAttr(asg.STAFF_NAME)}">
-        ${escapeHtml(asg.STAFF_NAME)}
-      </option>
-    `;
-  });
+    if (!activityId) {
 
-  if (relatedAssignees.length === 1) {
-    uploadedFor.value = relatedAssignees[0].STAFF_NAME;
-  }
+        container.innerHTML = `
+            <p class="empty-message">
+                Select an activity to view the assigned staff.
+            </p>
+        `;
+
+        return;
+    }
+
+    const relatedAssignees = uploadAssignees.filter(function(asg){
+
+        return String(asg.ACTIVITY_ID) === String(activityId);
+
+    });
+
+    if(relatedAssignees.length === 0){
+
+        container.innerHTML = `
+            <p class="empty-message">
+                No assigned staff.
+            </p>
+        `;
+
+        return;
+
+    }
+
+    relatedAssignees.forEach(function(asg){
+
+        container.innerHTML += `
+            <span class="staff-chip">
+                👤 ${escapeHtml(asg.STAFF_NAME)}
+            </span>
+        `;
+
+    });
+
 }
 
 async function uploadSupportingFile(event) {
   event.preventDefault();
 
   const activityId = document.getElementById("activitySelect").value;
-  const uploadedFor = document.getElementById("uploadedFor").value;
   const fileInput = document.getElementById("fileInput");
   const uploadType = document.getElementById("uploadType").value;
   const uploadRemarks = document.getElementById("uploadRemarks").value.trim();
@@ -203,7 +226,7 @@ async function uploadSupportingFile(event) {
         mimeType: file.type || "application/octet-stream",
         fileBase64: fileBase64,
         UPLOADED_BY: uploadUser.FULL_NAME || "SYSTEM",
-        UPLOADED_FOR: uploadedFor || "",
+        UPLOADED_FOR: getAssigneeNames(activityId),
         UPLOAD_REMARKS: remarksText
       })
     });
@@ -387,7 +410,11 @@ function filterUploads() {
 function clearUploadForm() {
   document.getElementById("activitySearch").value = "";
   document.getElementById("activitySelect").value = "";
-  document.getElementById("uploadedFor").innerHTML = `<option value="">Select responsible staff</option>`;
+  document.getElementById("assignedStaffContainer").innerHTML = `
+    <p class="empty-message">
+        Select an activity to view the assigned staff.
+    </p>
+`;
   document.getElementById("fileInput").value = "";
   document.getElementById("uploadType").value = "Completion Report";
   document.getElementById("uploadRemarks").value = "";
